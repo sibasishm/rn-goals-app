@@ -1,21 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	const [inputGoal, setInputGoal] = useState('');
+	const [allGoals, setAllGoals] = useState([]);
+	return (
+		<View>
+			<View>
+				<Text>Goal Tracker</Text>
+				<TextInput
+					placeholder='Add Goal'
+					value={inputGoal}
+					onChangeText={(text) => setInputGoal(text)}
+				/>
+				<Button
+					title='+ Add'
+					onPress={() => setAllGoals((prev) => prev.push(inputGoal))}
+				/>
+			</View>
+			<View>
+				{allGoals.length > 0 ? (
+					allGoals.map((goal, index) => (
+						<Text key={`goal-${index}`}>{goal}</Text>
+					))
+				) : (
+					<Text>No goals added yet.</Text>
+				)}
+			</View>
+		</View>
+	);
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
