@@ -16,6 +16,10 @@ export default function App() {
 		]);
 	};
 
+	const deleteGoalHandler = (item) => {
+		setAllGoals((prev) => prev.filter(({ key }) => item !== key));
+	};
+
 	return (
 		<View style={styles.conatiner}>
 			<Text style={styles.title}>Goal Tracker</Text>
@@ -23,7 +27,9 @@ export default function App() {
 			<FlatList
 				style={styles.list}
 				data={allGoals}
-				renderItem={(item) => <GoalItem goal={item} />}
+				renderItem={(item) => (
+					<GoalItem goal={item} deleteGoal={deleteGoalHandler} />
+				)}
 			/>
 		</View>
 	);
